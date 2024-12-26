@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gloassary</title>
+</head>
+
+<body>
+
+  <h1>Mystery books you may like</h1>
+
+  {% if data %}
+    <ul>
+      {% for key in data %}
+      <li>{{ key }}:{{ data[key] }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <b>No data</b>
+  {% endif %}
+  
+</body>
+
+</html>
