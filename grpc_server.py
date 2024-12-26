@@ -1,9 +1,13 @@
 from concurrent import futures
 import grpc
-import glossary_pb2
-import glossary_pb2_grpc
+from protobufs import glossary_pb2
+from protobufs import  glossary_pb2_grpc
 
-glossary = {
+
+class GloassaryController():
+    
+    def __init__(self):
+        self.terms = {
     "Производительность (Performance)": "Характеристика системы, отражающая её способность выполнять задачи за определённое время.",
     "Бенчмаркинг (Benchmarking)": "Процесс измерения производительности системы с использованием определённых тестов.",
     "Веб-приложение (Web Application)": "Программное обеспечение, работающее на веб-сервере и доступное через веб-браузер.",
@@ -97,31 +101,29 @@ glossary = {
     "Поток данных (Data Flow)": "Последовательность передачи данных в системе.",
     "Узкое место (Bottleneck)": "Часть системы, ограничивающая её производительность."
 }
-
-
-class GloassaryController():
+    
     def GetAllTerms(self, request, context):
         return glossary_pb2.TermList(terms=[
             glossary_pb2.Term(name=name, description=desc)
-            for name, desc in glossary.items()
+            for name, desc in self.terms.items()
         ])
 
     def AddTerm(self, request, context):
-        if request.name in glossary:
+        if request.name in self.terms:
             return glossary_pb2.OperationStatus(success=False, message="Term already exists")
-        glossary[request.name] = request.description
+        self.terms[request.name] = request.description
         return glossary_pb2.OperationStatus(success=True, message="Term added successfully")
 
     def UpdateTerm(self, request, context):
-        if request.name not in glossary:
+        if request.name not in self.terms:
             return glossary_pb2.OperationStatus(success=False, message="Term not found")
-        glossary[request.name] = request.description
+        self.terms[request.name] = request.description
         return glossary_pb2.OperationStatus(success=True, message="Term updated successfully")
 
     def DeleteTerm(self, request, context):
-        if request.name not in glossary:
+        if request.name not in self.terms:
             return glossary_pb2.OperationStatus(success=False, message="Term not found")
-        del glossary[request.name]
+        del self.terms[request.name]
         return glossary_pb2.OperationStatus(success=True, message="Term deleted successfully")
 
 

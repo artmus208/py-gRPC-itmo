@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gloassary</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossary</title>
 </head>
-
 <body>
-
-  <h1>Mystery books you may like</h1>
-
-  {% if data %}
+    <h1>Glossary</h1>
     <ul>
-      {% for key in data %}
-      <li>{{ key }}:{{ data[key] }}</li>
-      {% endfor %}
+        {% for term, description in glossary.items() %}
+        <li><strong>{{ term }}</strong>: {{ description }}</li>
+        {% endfor %}
     </ul>
-  {% else %}
-    <b>No data</b>
-  {% endif %}
-  
+    <h2>Add a New Term</h2>
+    <form action="/add" method="post">
+        <label for="name">Term:</label><br>
+        <input type="text" id="name" name="name" required><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" required></textarea><br>
+        <button type="submit">Add Term</button>
+    </form>
 </body>
-
 </html>
