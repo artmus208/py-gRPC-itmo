@@ -10,13 +10,5 @@ services:
     environment:
       - FLASK_ENV=production
   
-  grpc-server:
-    build:
-      context: C:\\Users\\musta\\Desktop\\PESK\\ProjectsSrc\\itmo\\py-eco-sys\\practice12\\pr12
-      dockerfile: C:\\Users\\musta\\Desktop\\PESK\\ProjectsSrc\\itmo\\py-eco-sys\\practice12\\pr12\\Dockerfile.grpc
-    container_name: grpc-server
-    command: python grpc_server.py
-    ports:
-      - "50051:50051"
   
 
