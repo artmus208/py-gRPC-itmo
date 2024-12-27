@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  backend:
+    build: .
+    container_name: backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=production
+  
+  grpc-server:
+    build: .
+    container_name: grpc-server
+    command: python grpc_server.py
+    ports:
+      - "50051:50051"
+  
+  frontend:
+    build:
+      context: ./client
+    container_name: frontend
+    volumes:
+      - ./client:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+    image: nginx:latest
