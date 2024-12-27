@@ -10,5 +10,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копировать исходный код
 COPY . .
 
+# Указываем порт, который будет использоваться контейнером
+EXPOSE 50051
 # Установить команду для запуска
 CMD ["python", "grpc_server.py"]
