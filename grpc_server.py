@@ -129,12 +129,15 @@ class GloassaryController():
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    glossary_pb2_grpc.add_GlossaryServiceServicer_to_server(GloassaryController(), server)
+    glossary_pb2_grpc.add_GlossaryControllerServicer_to_server(GloassaryController(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
     print("Server is running on port 50051")
     server.wait_for_termination()
     
 if __name__ == "__main__":
-    serve()
+    try:
+        serve()
+    except KeyboardInterrupt:
+        print("Ctrl-C\nServer gone")
     

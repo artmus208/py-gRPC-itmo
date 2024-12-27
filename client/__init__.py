@@ -8,7 +8,7 @@ def logging_setup(app: Flask):
     if not os.path.exists('logs'):
         os.mkdir('logs')
     file_handler = RotatingFileHandler(
-        'logs/tcs.log', maxBytes=10240, backupCount=10)
+        'logs/app.log', maxBytes=10240, backupCount=10)
     file_handler.setFormatter(logging.Formatter(
         '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'))
     file_handler.setLevel(logging.INFO)
@@ -16,8 +16,11 @@ def logging_setup(app: Flask):
     app.logger.setLevel(logging.INFO)
     
 def create_app():
-    app = Flask("app")
+    app = Flask("app",template_folder="client/templates")
     logging_setup(app)
+    from client.routes import bp
+    app.register_blueprint(bp)
     return app
 
-app: Flask = create_app()
+
+
