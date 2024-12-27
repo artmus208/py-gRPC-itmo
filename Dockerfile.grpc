@@ -1,0 +1,14 @@
+# gRPC Server Dockerfile
+FROM python:3.12
+
+WORKDIR /app
+
+# Установить зависимости
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Копировать исходный код
+COPY . .
+
+# Установить команду для запуска
+CMD ["python", "grpc_server.py"]
